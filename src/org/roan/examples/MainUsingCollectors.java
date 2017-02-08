@@ -56,6 +56,14 @@ public class MainUsingCollectors {
 			Function<String, Map<Integer, Long>> histoWord = word -> word.chars().boxed()
 					.collect(Collectors.groupingBy(letter -> letter, Collectors.counting()));
 			
+			Function<String, Long> nBlanks = word -> histoWord.apply(word) //Map<Integer, Long> Map<letter, # of letters>
+					.entrySet()
+					.stream() //Map.Entry<Integer, Long>
+					.mapToLong(entry -> Long.max(entry.getValue() - (long) scrabbleENDistribution[entry.getKey() - 'a'], 0L))
+					.sum();
+			
+			System.out.println("# of blanks for whizzing : " + nBlanks.apply("whizzing"));
+			
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
