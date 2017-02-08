@@ -73,6 +73,20 @@ public class MainUsingCollectors {
 			System.out.println("# score for whizzing : " + score.apply("whizzing"));
 			System.out.println("# score2 for whizzing : " + score2.apply("whizzing"));
 			
+//			Map<Integer, List<String>> histoWordsByScore2 = 
+				shakespeareWords.stream()
+					.filter(scrabbleWords::contains)
+					.filter(word -> nBlanks.apply(word) <= 2)
+					.collect(Collectors.groupingBy(score2))
+					.entrySet()
+					.stream()
+					.sorted(Comparator.comparing(entry -> -entry.getKey()))
+					.limit(3)
+					.forEach(entry -> System.out.println(entry.getKey() + " - " + entry.getValue()));
+					
+			
+			
+			
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
