@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -34,6 +36,10 @@ public class MainUsingCollectors {
 					word -> word.toLowerCase().chars()
 						.map(letter -> letterScores[letter - 'a'])
 						.sum();
+					
+			Map<Integer, List<String>> histoWordsByScore = shakespeareWords.stream().collect(Collectors.groupingBy(score));
+			
+			System.out.println("# histoWordsByScore = " + histoWordsByScore.size());
 			
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
