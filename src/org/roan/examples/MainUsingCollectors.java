@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,6 +41,12 @@ public class MainUsingCollectors {
 			Map<Integer, List<String>> histoWordsByScore = shakespeareWords.stream().collect(Collectors.groupingBy(score));
 			
 			System.out.println("# histoWordsByScore = " + histoWordsByScore.size());
+			
+			histoWordsByScore.entrySet()
+				.stream()
+				.sorted(Comparator.comparing(entry -> -entry.getKey()))
+				.limit(3)
+				.forEach(entry -> System.out.println(entry.getKey() + " - " + entry.getValue()));
 			
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
