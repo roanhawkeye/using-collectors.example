@@ -38,7 +38,7 @@ public class MainUsingCollectors {
 						.map(letter -> letterScores[letter - 'a'])
 						.sum();
 					
-			Map<Integer, List<String>> histoWordsByScore = shakespeareWords.stream().collect(Collectors.groupingBy(score));
+			Map<Integer, List<String>> histoWordsByScore = shakespeareWords.stream().filter(scrabbleWords::contains).collect(Collectors.groupingBy(score));
 			
 			System.out.println("# histoWordsByScore = " + histoWordsByScore.size());
 			
