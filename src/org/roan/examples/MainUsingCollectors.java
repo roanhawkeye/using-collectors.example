@@ -64,6 +64,15 @@ public class MainUsingCollectors {
 			
 			System.out.println("# of blanks for whizzing : " + nBlanks.apply("whizzing"));
 			
+			Function<String, Integer> score2 = word -> histoWord.apply(word)
+					.entrySet()
+					.stream() //Map.Entry<Integer, Long>
+					.mapToInt(letter -> letterScores[letter.getKey() - 'a']* Integer.min(letter.getValue().intValue(), scrabbleENDistribution[letter.getKey() - 'a']))
+					.sum();
+					
+			System.out.println("# score for whizzing : " + score.apply("whizzing"));
+			System.out.println("# score2 for whizzing : " + score2.apply("whizzing"));
+			
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
